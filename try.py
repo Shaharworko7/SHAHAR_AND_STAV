@@ -17,10 +17,10 @@ soldier = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-e.png")
 grass = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-green.png")
 
 while running:
-    for i in range(20):
-        location_x = random.randint(0, 49)
-        location_y = random.randint(0, 24)
-        grass_loc = matrix_game[location_y][location_x] = screen.blit(grass, (2, 2))
+    # for i in range(20):
+    #     location_x = random.randint(0, 49)
+    #     location_y = random.randint(0, 24)
+    #     grass_loc = matrix_game[location_y][location_x] = screen.blit(grass, (2, 2))
         # screen.blit(grass_loc)
         # screen.blit(matrix_game[location_y][location_x], (location_x , location_y))
     screen.fill(color)
