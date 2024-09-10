@@ -14,8 +14,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     key = pygame.key.get_pressed()
-    if pygame.key.get_pressed() == :
-
+    if key[pygame.K_RIGHT]:
         pygame.draw.circle(screen, (230, 138, 177), (700, 400), 200, 25)
-    pygame.draw.rect(screen, (92, 189, 70), (100, 200, 100, 200))
+    if key[pygame.K_LEFT]:
+        pygame.draw.rect(screen, (92, 189, 70), (100, 200, 100, 200))
     pygame.display.update()
