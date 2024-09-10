@@ -2,20 +2,31 @@ import pygame
 
 # stav try:
 pygame.init()
-screen = pygame.display.set_mode((1400, 800))
+screen = pygame.display.set_mode((750,375))
 pygame.display.set_caption("womp")
 clock = pygame.time.Clock()
 running = True
 color = (138, 193, 230)
+x = 1
+y = 1
+flag = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-0.png")
+soilder = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-e.png")
+
 
 while running:
     screen.fill(color)
+    screen.blit(flag, (670, 280))
+    screen.blit(soilder, (x,y))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     key = pygame.key.get_pressed()
-    if key[pygame.K_RIGHT]:
-        pygame.draw.circle(screen, (230, 138, 177), (700, 400), 200, 25)
-    if key[pygame.K_LEFT]:
-        pygame.draw.rect(screen, (92, 189, 70), (100, 200, 100, 200))
+    if key[pygame.K_RIGHT] and x < 750:
+        x += 1
+    if key[pygame.K_LEFT] and x > 1:
+        x -= 1
+    if key[pygame.K_UP] and y > 1:
+        y -= 1
+    if key[pygame.K_DOWN] and y < 375:
+        y += 1
     pygame.display.update()
