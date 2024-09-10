@@ -12,7 +12,7 @@ x = 1
 y = 1
 flag = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-0.png")
 soldier = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-e.png")
-grass = pygame.image.load()
+grass = pygame.image.load("C:\\Users\\jbt\\Desktop\\pixil-frame-green.png")
 
 
 while running:
