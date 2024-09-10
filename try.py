@@ -21,12 +21,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     key = pygame.key.get_pressed()
-    if key[pygame.K_RIGHT] and x < 750:
+    if key[pygame.K_RIGHT] and x < 685:
         x += 1
     if key[pygame.K_LEFT] and x > 1:
         x -= 1
     if key[pygame.K_UP] and y > 1:
         y -= 1
-    if key[pygame.K_DOWN] and y < 375:
+    if key[pygame.K_DOWN] and y < 275:
         y += 1
     pygame.display.update()
