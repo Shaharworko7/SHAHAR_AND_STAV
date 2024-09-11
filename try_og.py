@@ -1,7 +1,7 @@
-# import pygame
 # import random
 # from sprites import *
 from setting import *
+import pygame
 
 
 # stav try:
