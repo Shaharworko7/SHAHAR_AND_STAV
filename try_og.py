@@ -1,11 +1,11 @@
 # import pygame
 # import random
-# from setting import *
-from sprites import *
+# from sprites import *
+from setting import *
+
 
 # stav try:
 # screen_grid = Grid(matrix=matrix_game)
-
 
 class Game:
     matrix_game = [[0 for width in range(50)] for height in range(25)]
@@ -24,18 +24,18 @@ class Game:
             # screen.blit(grass_loc)
             # screen.blit(matrix_game[location_y][location_x], (location_x , location_y))
         screen.fill(COLOR_BG)
-        screen.blit(FLAG, (670, 280))
-        screen.blit(SOLDIER, (x, y))
+        screen.blit(FLAG, (WIDTH - 80, HEIGHT - 95))
+        screen.blit(SOLDIER, (move_x, move_y))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
         key = pygame.key.get_pressed()
-        if key[pygame.K_RIGHT] and x < 680:
-            x += 1
-        if key[pygame.K_LEFT] and x > 1:
-            x -= 1
-        if key[pygame.K_UP] and y > 1:
-            y -= 1
-        if key[pygame.K_DOWN] and y < 295:
-            y += 1
+        if key[pygame.K_RIGHT] and move_x < WIDTH - 70:
+            move_x += 1
+        if key[pygame.K_LEFT] and move_x > 1:
+            move_x -= 1
+        if key[pygame.K_UP] and move_y > 1:
+            move_y -= 1
+        if key[pygame.K_DOWN] and move_y < HEIGHT - 80:
+            move_y += 1
         pygame.display.update()
