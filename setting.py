@@ -2,6 +2,7 @@ import pygame
 
 WIDTH = 800
 HEIGHT = 400
+FPS = 60
 TITLE = "womp"
 COLOR_BG = (95, 158, 47)
 TILE_SIZE = 16
