@@ -1,6 +1,7 @@
-import pygame
-import random
-from setting import *
+# import pygame
+# import random
+# from setting import *
+from sprites import *
 
 # stav try:
 # screen_grid = Grid(matrix=matrix_game)
@@ -8,9 +9,8 @@ from setting import *
 x = 1
 y = 1
 
+
 class Game:
-    x = 1
-    y = 1
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -19,7 +19,12 @@ class Game:
         self.running = True
 
     def matrix(self):
-        matrix_game = [[0 for height in range(25)] for width in range(50)]
+        matrix_game = [[0 for width in range(50)] for height in range(25)]
+
+        for row in matrix_game:
+            for id in row:
+                if id == 0:
+                    pass
 
     def run(self):
         while self.running:
@@ -37,10 +42,13 @@ class Game:
             #     matrix_game[location_y][location_x] = GRASS
             #     screen.blit(matrix_game[location_y][location_x], 1,1)
             self.all_sprites = pygame.sprite.Group
-            self.all_sprites.update()
 
-            self.screen.fill(COLOR_BG)
-            self.screen.blit(FLAG, (WIDTH - 80, HEIGHT - 95))
+            GridBlock((0, 0), self.all_sprites)
+
+            # self.all_sprites.update()
+            #
+            # self.screen.fill(COLOR_BG)
+            # self.screen.blit(FLAG, (WIDTH - 80, HEIGHT - 95))
             # self.screen.blit(SOLDIER, (x, y))
             #
             # key = pygame.key.get_pressed()
@@ -52,5 +60,10 @@ class Game:
             #     y -= 1
             # if key[pygame.K_DOWN] and y < HEIGHT - 80:
             #     y += 1
-            pygame.display.update()
+            # pygame.display.update()
+            pygame.display.flip()
         pygame.quit()
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()

@@ -13,3 +13,5 @@ GRID_HEIGHT = HEIGHT / TILE_SIZE
 FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-0.png")
 SOLDIER = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-e.png")
 GRASS = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-green.png")
+
+
