@@ -28,7 +28,9 @@ while running:
     for row in range(GRID_HEIGHT):
         for col in range(GRID_WIDTH):
             if matrix[row][col] == 'x':
-                screen.blit(GRASS, ((row * TILE_SIZE), (col * TILE_SIZE)))
+                location_y = row * TILE_SIZE
+                location_x = col * TILE_SIZE
+                screen.blit(GRASS, (location_x, location_y))
 
     screen.blit(FLAG, (WIDTH - 55, HEIGHT - 65))
     screen.blit(SOLDIER, (move_x, move_y))
