@@ -13,17 +13,22 @@ matrix = [[0 for width in range(50)] for height in range(25)]
 player_start = matrix[0][0] = 1
 
 for i in range(20):
-    location_x = random.randrange(0, WIDTH - 32, TILE_SIZE)
-    location_y = random.randrange(0, HEIGHT - 32, TILE_SIZE)
-    matrix[location_y / TILE_SIZE][location_x / TILE_SIZE]
-    screen.blit(GRASS, (location_x, location_y))
-
+    location_x = random.randrange(0, WIDTH, TILE_SIZE)
+    location_y = random.randrange(0, HEIGHT, TILE_SIZE)
+    x = int(location_x / TILE_SIZE)
+    y = int(location_y / TILE_SIZE)
+    matrix[y][x] = 'x'
 
 while running:
     screen.fill(COLOR_BG)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    for row in range(GRID_HEIGHT):
+        for col in range(GRID_WIDTH):
+            if matrix[row][col] == 'x':
+                screen.blit(GRASS, ((row * TILE_SIZE), (col * TILE_SIZE)))
     screen.blit(FLAG, (WIDTH - 55, HEIGHT - 65))
     screen.blit(SOLDIER, (move_x, move_y))
     key = pygame.key.get_pressed()
