@@ -29,6 +29,7 @@ while running:
         for col in range(GRID_WIDTH):
             if matrix[row][col] == 'x':
                 screen.blit(GRASS, ((row * TILE_SIZE), (col * TILE_SIZE)))
+
     screen.blit(FLAG, (WIDTH - 55, HEIGHT - 65))
     screen.blit(SOLDIER, (move_x, move_y))
     key = pygame.key.get_pressed()
