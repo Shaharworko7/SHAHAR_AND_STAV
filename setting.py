@@ -9,6 +9,9 @@ TILE_SIZE = 16
 GRID_WIDTH = WIDTH / TILE_SIZE
 GRID_HEIGHT = HEIGHT / TILE_SIZE
 
+move_x = 1
+move_y = 1
+
 # stav graphics
 FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-0.png")
 SOLDIER = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-e.png")
