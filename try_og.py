@@ -6,6 +6,7 @@ from sprites import *
 # stav try:
 # screen_grid = Grid(matrix=matrix_game)
 
+
 class Game:
     matrix_game = [[0 for width in range(50)] for height in range(25)]
 
