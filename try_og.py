@@ -29,10 +29,13 @@ while i < 20:
     x = int(location_x / TILE_SIZE)
     y = int(location_y / TILE_SIZE)
     if matrix[y][x] != 'x':
-        matrix[y][x] = 'x'
+        # matrix[y][x] = 'x'
         i += 1
-        # for j in range(3):
-        #     matrix[y][x] = 'x'
+        for j in range(3):
+            if x != GRID_WIDTH - 1:
+                matrix[y][x + j] = 'x'
+            else:
+                matrix[y][x - j] = 'x'
 
 while running:
     for event in pygame.event.get():
