@@ -7,7 +7,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("womp")
 clock = pygame.time.Clock()
 running = True
-is_finished = False
+wait = False
 i = 0
 
 matrix = [[0 for width in range(50)] for height in range(25)]
@@ -24,13 +24,15 @@ while i < 20:
 
 i = 0
 while i < 20:
-    location_x = random.randrange(0, WIDTH, TILE_SIZE)
-    location_y = random.randrange(0, HEIGHT, TILE_SIZE)
+    location_x = random.randrange(0, WIDTH - (TILE_SIZE * 3), TILE_SIZE)
+    location_y = random.randrange(0, HEIGHT - (TILE_SIZE * 3), TILE_SIZE)
     x = int(location_x / TILE_SIZE)
     y = int(location_y / TILE_SIZE)
     if matrix[y][x] != 'x':
         matrix[y][x] = 'x'
         i += 1
+        # for j in range(3):
+        #     matrix[y][x] = 'x'
 
 while running:
     for event in pygame.event.get():
@@ -45,6 +47,11 @@ while running:
                     location_y = row * TILE_SIZE
                     location_x = col * TILE_SIZE
                     screen.blit(MINE, (location_x, location_y))
+        wait = True
+    elif wait:
+        pygame.time.wait(1000)
+        wait = False
+
     else:
         screen.fill(COLOR_BG)
         for row in range(GRID_HEIGHT):
@@ -69,8 +76,6 @@ while running:
     screen.blit(FLAG, (WIDTH - 50, HEIGHT - 66))
     screen.blit(SOLDIER, (move_x, move_y))
 
-
-
-            # pygame.time.wait(1000)
+    # pygame.time.wait(1000)
 
     pygame.display.update()
