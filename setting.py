@@ -13,8 +13,9 @@ move_x = 1
 move_y = 1
 
 # stav graphics
-FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-0.png")
+FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-flag.png")
 SOLDIER = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-e.png")
 GRASS = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-green.png")
+MINE = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_grapics\\pixil-frame-0.png")
 
 
