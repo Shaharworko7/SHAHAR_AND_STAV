@@ -32,6 +32,7 @@ while i < 20:
         for j in range(3):
             matrix[y][x + j] = 'x'
 
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
