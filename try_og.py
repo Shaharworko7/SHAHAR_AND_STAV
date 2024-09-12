@@ -33,39 +33,44 @@ while i < 20:
         i += 1
 
 while running:
-    screen.fill(COLOR_BG)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    for row in range(GRID_HEIGHT):
-        for col in range(GRID_WIDTH):
-            if matrix[row][col] == 'g':
-                location_y = row * TILE_SIZE
-                location_x = col * TILE_SIZE
-                screen.blit(GRASS, (location_x, location_y))
-
-    for row in range(GRID_HEIGHT):
-        for col in range(GRID_WIDTH):
-            if matrix[row][col] == 'x':
-                location_y = row * TILE_SIZE
-                location_x = col * TILE_SIZE
-                screen.blit(MINE, (location_x, location_y))
+    key = pygame.key.get_pressed()
+    if key[pygame.K_SPACE]:
+        screen.fill((0, 0, 0))
+        for row in range(GRID_HEIGHT):
+            for col in range(GRID_WIDTH):
+                if matrix[row][col] == 'x':
+                    location_y = row * TILE_SIZE
+                    location_x = col * TILE_SIZE
+                    screen.blit(MINE, (location_x, location_y))
+    else:
+        screen.fill(COLOR_BG)
+        for row in range(GRID_HEIGHT):
+            for col in range(GRID_WIDTH):
+                if matrix[row][col] == 'g':
+                    location_y = row * TILE_SIZE
+                    location_x = col * TILE_SIZE
+                    screen.blit(GRASS, (location_x, location_y))
+        if key[pygame.K_RIGHT] and move_x < WIDTH - 55:
+            move_x += TILE_SIZE
+            pygame.time.wait(100)
+        if key[pygame.K_LEFT] and move_x > 1:
+            move_x -= TILE_SIZE
+            pygame.time.wait(100)
+        if key[pygame.K_UP] and move_y > 1:
+            move_y -= TILE_SIZE
+            pygame.time.wait(100)
+        if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
+            move_y += TILE_SIZE
+            pygame.time.wait(100)
 
     screen.blit(FLAG, (WIDTH - 50, HEIGHT - 66))
     screen.blit(SOLDIER, (move_x, move_y))
-    key = pygame.key.get_pressed()
-    if key[pygame.K_RIGHT] and move_x < WIDTH - 55:
-        move_x += TILE_SIZE
-        pygame.time.wait(100)
-    if key[pygame.K_LEFT] and move_x > 1:
-        move_x -= TILE_SIZE
-        pygame.time.wait(100)
-    if key[pygame.K_UP] and move_y > 1:
-        move_y -= TILE_SIZE
-        pygame.time.wait(100)
-    if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
-        move_y += TILE_SIZE
-        pygame.time.wait(100)
-    if key[pygame.K_EN]
+
+
+
+            # pygame.time.wait(1000)
+
     pygame.display.update()
