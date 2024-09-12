@@ -14,8 +14,8 @@ matrix = [[0 for width in range(50)] for height in range(25)]
 player_start = matrix[0][0] = 1
 
 while i < 20:
-    location_x = random.randrange(0, WIDTH - TILE_SIZE, TILE_SIZE)
-    location_y = random.randrange(0, HEIGHT - TILE_SIZE, TILE_SIZE)
+    location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), TILE_SIZE)
+    location_y = random.randrange(0, HEIGHT - (TILE_SIZE * 2), TILE_SIZE)
     x = int(location_x / TILE_SIZE)
     y = int(location_y / TILE_SIZE)
     if matrix[y][x] != 'g':
