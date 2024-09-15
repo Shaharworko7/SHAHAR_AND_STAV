@@ -17,12 +17,7 @@ lose_text = font.render("YOU LOSE!", True, (255, 255, 255))
 textRect = lose_text.get_rect()
 textRect.center = (X // 2, Y // 2)
 
-
 matrix = [[0 for width in range(50)] for height in range(25)]
-
-player_feet_row_index = 3
-player_left_foot_index = 0
-player_right_foot_index = 1
 
 i = 0
 while i < 20:
@@ -50,12 +45,71 @@ for row in range(21, 25):
         matrix[row][col] = 'flag'
 
 while running:
+    if not is_win:
+        pygame.time.wait(3000)
+        running = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
     key = pygame.key.get_pressed()
-    if key[pygame.K_RETURN] or not is_win:
+    if wait:
+        pygame.time.wait(1000)
+        wait = False
+
+    else:
+        screen.fill(COLOR_BG)
+        for row in range(20):
+            screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
+
+        if key[pygame.K_RIGHT] and move_x < WIDTH - 33:
+            move_x += TILE_SIZE
+            player_left_col += 1
+            player_right_col += 1
+            if (matrix[player_feet_row][player_left_col] != 'x'
+                    and matrix[player_feet_row][player_right_col] != 'x'):
+                matrix[player_feet_row][player_left_col] = 'P'
+                matrix[player_feet_row][player_right_col] = 'P'
+            else:
+                is_win = False
+            pygame.time.wait(100)
+
+        if key[pygame.K_LEFT] and move_x > 1:
+            move_x -= TILE_SIZE
+            player_left_col -= 1
+            player_right_col -= 1
+            if (matrix[player_feet_row][player_left_col] != 'x'
+                    and matrix[player_feet_row][player_right_col] != 'x'):
+                matrix[player_feet_row][player_left_col] = 'P'
+                matrix[player_feet_row][player_right_col] = 'P'
+            else:
+                is_win = False
+            pygame.time.wait(100)
+
+        if key[pygame.K_UP] and move_y > 1:
+            move_y -= TILE_SIZE
+            player_feet_row -= 1
+            if (matrix[player_feet_row][player_left_col] != 'x'
+                    and matrix[player_feet_row][player_right_col] != 'x'):
+                matrix[player_feet_row][player_left_col] = 'P'
+                matrix[player_feet_row][player_right_col] = 'P'
+            else:
+                is_win = False
+            pygame.time.wait(100)
+
+        if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
+            move_y += TILE_SIZE
+            player_feet_row += 1
+            if (matrix[player_feet_row][player_left_col] != 'x'
+                    and matrix[player_feet_row][player_right_col] != 'x'):
+                matrix[player_feet_row][player_left_col] = 'P'
+                matrix[player_feet_row][player_right_col] = 'P'
+            else:
+                is_win = False
+            pygame.time.wait(100)
+
+    if not is_win or key[pygame.K_RETURN]:
         screen.fill(SQUARES_COLOR)
         for row in range(25):
             for col in range(50):
@@ -69,70 +123,10 @@ while running:
                     screen.blit(MINE, (location_x, location_y))
                     col += 2
                 col += 1
-        wait = True
-        for row in matrix:
-            print(row)
-        print()
-
-    elif wait:
         if not is_win:
-            pygame.time.wait(3000)
-            running = False
+            screen.blit(lose_text, textRect)
         else:
-            pygame.time.wait(1000)
-        wait = False
-
-    else:
-        screen.fill(COLOR_BG)
-        for row in range(20):
-            screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
-
-        if key[pygame.K_RIGHT] and move_x < WIDTH - 33:
-            move_x += TILE_SIZE
-            player_left_foot_index += 1
-            player_right_foot_index += 1
-            if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
-                    and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
-                matrix[player_feet_row_index][player_left_foot_index] = 'P'
-                matrix[player_feet_row_index][player_right_foot_index] = 'P'
-            else:
-                is_win = False
-            pygame.time.wait(100)
-
-        if key[pygame.K_LEFT] and move_x > 1:
-            move_x -= TILE_SIZE
-            player_left_foot_index -= 1
-            player_right_foot_index -= 1
-            if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
-                    and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
-                matrix[player_feet_row_index][player_left_foot_index] = 'P'
-                matrix[player_feet_row_index][player_right_foot_index] = 'P'
-            else:
-                is_win = False
-            pygame.time.wait(100)
-
-        if key[pygame.K_UP] and move_y > 1:
-            move_y -= TILE_SIZE
-            player_feet_row_index -= 1
-            if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
-                    and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
-                matrix[player_feet_row_index][player_left_foot_index] = 'P'
-                matrix[player_feet_row_index][player_right_foot_index] = 'P'
-            else:
-                is_win = False
-            pygame.time.wait(100)
-
-        if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
-            move_y += TILE_SIZE
-            player_feet_row_index += 1
-            if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
-                    and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
-                matrix[player_feet_row_index][player_left_foot_index] = 'P'
-                matrix[player_feet_row_index][player_right_foot_index] = 'P'
-            else:
-                is_win = False
-            pygame.time.wait(100)
-
+            wait = True
 
     screen.blit(FLAG, ((47 * TILE_SIZE), (21 * TILE_SIZE)))
     screen.blit(SOLDIER, (move_x, move_y))
