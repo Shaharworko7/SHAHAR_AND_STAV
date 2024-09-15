@@ -8,15 +8,17 @@ pygame.display.set_caption("womp")
 clock = pygame.time.Clock()
 running = True
 wait = False
-i = 0
 
 matrix = [[0 for width in range(50)] for height in range(25)]
 
+i = 0
 while i < 20:
+    grass_list.append(['', ''])
     location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), TILE_SIZE)
     location_y = random.randrange(0, HEIGHT, TILE_SIZE)
-    if grass_list[i][0] != location_x and grass_list[i][1] != location_y:
-        grass_list.append([location_x, location_y])
+    if not (grass_list[i - 1][0] == location_x and grass_list[i - 1][1] == location_y):
+        grass_list[i][0] = location_x
+        grass_list[i][1] = location_y
         i += 1
 
 i = 0
@@ -43,8 +45,8 @@ while running:
         for row in range(GRID_HEIGHT):
             for col in range(GRID_WIDTH):
                 if matrix[row][col] == 'x':
-                    location_y = (row) * TILE_SIZE
-                    location_x = (col) * TILE_SIZE
+                    location_y = row * TILE_SIZE
+                    location_x = col * TILE_SIZE
                     screen.blit(MINE, (location_x, location_y))
         for row in matrix:
             print(row)
