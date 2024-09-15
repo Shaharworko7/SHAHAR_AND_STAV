@@ -7,9 +7,14 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("womp")
 clock = pygame.time.Clock()
 running = True
+is_win = True
 wait = False
 
 matrix = [[0 for width in range(50)] for height in range(25)]
+
+player_feet_row_index = 3
+player_left_foot_index = 0
+player_right_foot_index = 1
 
 i = 0
 while i < 20:
@@ -32,7 +37,14 @@ while i < 20:
         for j in range(3):
             matrix[y][x + j] = 'x'
 
+for row in range(21,25):
+    for col in range(47, 50):
+        matrix[row][col] = 'flag'
+
 while running:
+    if not is_win:
+        pygame.time.wait(3000)
+        running = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -51,44 +63,72 @@ while running:
                     screen.blit(MINE, (location_x, location_y))
                     col += 2
                 col += 1
-
         for row in matrix:
             print(row)
+        print()
+
         wait = True
     elif wait:
         pygame.time.wait(1000)
         wait = False
 
     else:
-        screen.fill(COLOR_BG)
-        for row in range(20):
-            screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
-        if key[pygame.K_RIGHT] and move_x < WIDTH - 55:
-            move_x += TILE_SIZE
-            pygame.time.wait(100)
+        if is_win:
+            screen.fill(COLOR_BG)
+            for row in range(20):
+                screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
 
-            for row in matrix:
-                print(row)
-        if key[pygame.K_LEFT] and move_x > 1:
-            move_x -= TILE_SIZE
-            pygame.time.wait(100)
+            if key[pygame.K_RIGHT] and move_x < WIDTH - 33:
+                move_x += TILE_SIZE
+                player_left_foot_index += 1
+                player_right_foot_index += 1
+                if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
+                        and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
+                    matrix[player_feet_row_index][player_left_foot_index] = 'P'
+                    matrix[player_feet_row_index][player_right_foot_index] = 'P'
+                else:
+                    is_win = False
+                pygame.time.wait(100)
 
-            for row in matrix:
-                print(row)
-        if key[pygame.K_UP] and move_y > 1:
-            move_y -= TILE_SIZE
-            pygame.time.wait(100)
+            if key[pygame.K_LEFT] and move_x > 1:
+                move_x -= TILE_SIZE
+                player_left_foot_index -= 1
+                player_right_foot_index -= 1
+                if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
+                        and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
+                    matrix[player_feet_row_index][player_left_foot_index] = 'P'
+                    matrix[player_feet_row_index][player_right_foot_index] = 'P'
+                else:
+                    is_win = False
+                pygame.time.wait(100)
 
-            for row in matrix:
-                print(row)
-        if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
-            move_y += TILE_SIZE
-            pygame.time.wait(100)
+            if key[pygame.K_UP] and move_y > 1:
+                move_y -= TILE_SIZE
+                player_feet_row_index -= 1
+                if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
+                        and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
+                    matrix[player_feet_row_index][player_left_foot_index] = 'P'
+                    matrix[player_feet_row_index][player_right_foot_index] = 'P'
+                else:
+                    is_win = False
+                pygame.time.wait(100)
 
-            for row in matrix:
-                print(row)
+            if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
+                move_y += TILE_SIZE
+                player_feet_row_index += 1
+                if (matrix[player_feet_row_index][player_left_foot_index] != 'x'
+                        and matrix[player_feet_row_index][player_right_foot_index] != 'x'):
+                    matrix[player_feet_row_index][player_left_foot_index] = 'P'
+                    matrix[player_feet_row_index][player_right_foot_index] = 'P'
+                else:
+                    is_win = False
+                pygame.time.wait(100)
 
-        screen.blit(FLAG, (WIDTH - 50, HEIGHT - 66))
+    if not is_win:
+        screen.fill((0, 0, 0))
+
+
+    screen.blit(FLAG, ((47 *TILE_SIZE), (21 *TILE_SIZE)))
     screen.blit(SOLDIER, (move_x, move_y))
 
     pygame.display.update()
