@@ -67,10 +67,10 @@ while running:
             move_x += TILE_SIZE
             player_left_col += 1
             player_right_col += 1
-            if (matrix[player_feet_row][player_left_col] != 'x'
-                    and matrix[player_feet_row][player_right_col] != 'x'):
-                matrix[player_feet_row][player_left_col] = 'P'
-                matrix[player_feet_row][player_right_col] = 'P'
+            if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
+                    and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_win = False
             pygame.time.wait(100)
@@ -79,32 +79,32 @@ while running:
             move_x -= TILE_SIZE
             player_left_col -= 1
             player_right_col -= 1
-            if (matrix[player_feet_row][player_left_col] != 'x'
-                    and matrix[player_feet_row][player_right_col] != 'x'):
-                matrix[player_feet_row][player_left_col] = 'P'
-                matrix[player_feet_row][player_right_col] = 'P'
+            if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
+                    and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_win = False
             pygame.time.wait(100)
 
         if key[pygame.K_UP] and move_y > 1:
             move_y -= TILE_SIZE
-            player_feet_row -= 1
-            if (matrix[player_feet_row][player_left_col] != 'x'
-                    and matrix[player_feet_row][player_right_col] != 'x'):
-                matrix[player_feet_row][player_left_col] = 'P'
-                matrix[player_feet_row][player_right_col] = 'P'
+            player_rows["player_feet_row"] -= 1
+            if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
+                    and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_win = False
             pygame.time.wait(100)
 
         if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
             move_y += TILE_SIZE
-            player_feet_row += 1
-            if (matrix[player_feet_row][player_left_col] != 'x'
-                    and matrix[player_feet_row][player_right_col] != 'x'):
-                matrix[player_feet_row][player_left_col] = 'P'
-                matrix[player_feet_row][player_right_col] = 'P'
+            player_rows["player_feet_row"] += 1
+            if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
+                    and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_win = False
             pygame.time.wait(100)
