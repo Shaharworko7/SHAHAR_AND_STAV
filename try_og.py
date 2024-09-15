@@ -42,13 +42,15 @@ while running:
         for row in range(25):
             for col in range(50):
                 pygame.draw.rect(screen, (COLOR_BG), [(TILE_SIZE) * col, (TILE_SIZE) * row, WIDTH, HEIGHT], 1)
-        row = 0
-        while row < GRID_HEIGHT:
-            for col in range(GRID_WIDTH):
+        for row in range(GRID_HEIGHT):
+            col = 0
+            while col < GRID_WIDTH:
                 if matrix[row][col] == 'x':
                     location_y = row * TILE_SIZE
                     location_x = col * TILE_SIZE
                     screen.blit(MINE, (location_x, location_y))
+                    col += 2
+                col += 1
 
         for row in matrix:
             print(row)
