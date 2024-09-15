@@ -14,12 +14,9 @@ matrix = [[0 for width in range(50)] for height in range(25)]
 
 while i < 20:
     location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), TILE_SIZE)
-    location_y = random.randrange(0, HEIGHT - (TILE_SIZE * 2), TILE_SIZE)
-    x = int(location_x / TILE_SIZE)
-    y = int(location_y / TILE_SIZE)
-    if matrix[y][x] != 'g':
-        matrix[y][x] = 'g'
-        i += 1
+    location_y = random.randrange(0, HEIGHT, TILE_SIZE)
+    grass_list.append([location_x, location_y])
+    i += 1
 
 i = 0
 while i < 20:
@@ -32,7 +29,6 @@ while i < 20:
         for j in range(3):
             matrix[y][x + j] = 'x'
 
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -42,13 +38,14 @@ while running:
         screen.fill(SQUARES_COLOR)
         for row in range(25):
             for col in range(50):
-                pygame.draw.rect(screen, (COLOR_BG),[(TILE_SIZE) * col, (TILE_SIZE) * row, WIDTH, HEIGHT], 1)
+                pygame.draw.rect(screen, (COLOR_BG), [(TILE_SIZE) * col, (TILE_SIZE) * row, WIDTH, HEIGHT], 1)
         for row in range(GRID_HEIGHT):
             for col in range(GRID_WIDTH):
                 if matrix[row][col] == 'x':
-                    location_y = row * TILE_SIZE
-                    location_x = col * TILE_SIZE
+                    location_y = (row - 2) * TILE_SIZE
+                    location_x = (col - 2) * TILE_SIZE
                     screen.blit(MINE, (location_x, location_y))
+                    break
         for row in matrix:
             print(row)
         wait = True
@@ -58,12 +55,8 @@ while running:
 
     else:
         screen.fill(COLOR_BG)
-        for row in range(GRID_HEIGHT):
-            for col in range(GRID_WIDTH):
-                if matrix[row][col] == 'g':
-                    location_y = row * TILE_SIZE
-                    location_x = col * TILE_SIZE
-                    screen.blit(GRASS, (location_x, location_y))
+        for row in range(20):
+            screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
         if key[pygame.K_RIGHT] and move_x < WIDTH - 55:
             move_x += TILE_SIZE
             pygame.time.wait(100)
