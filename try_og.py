@@ -15,8 +15,9 @@ matrix = [[0 for width in range(50)] for height in range(25)]
 while i < 20:
     location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), TILE_SIZE)
     location_y = random.randrange(0, HEIGHT, TILE_SIZE)
-    grass_list.append([location_x, location_y])
-    i += 1
+    if grass_list[i][0] != location_x and grass_list[i][1] != location_y:
+        grass_list.append([location_x, location_y])
+        i += 1
 
 i = 0
 while i < 20:
@@ -42,10 +43,9 @@ while running:
         for row in range(GRID_HEIGHT):
             for col in range(GRID_WIDTH):
                 if matrix[row][col] == 'x':
-                    location_y = (row - 2) * TILE_SIZE
-                    location_x = (col - 2) * TILE_SIZE
+                    location_y = (row) * TILE_SIZE
+                    location_x = (col) * TILE_SIZE
                     screen.blit(MINE, (location_x, location_y))
-                    break
         for row in matrix:
             print(row)
         wait = True
