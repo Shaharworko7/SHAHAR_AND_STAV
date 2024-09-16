@@ -29,7 +29,7 @@ matrix = [[0 for width in range(50)] for height in range(25)]
 i = 0
 while i < 20:
     grass_list.append(['', ''])
-    location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), TILE_SIZE)
+    location_x = random.randrange(0, WIDTH - (TILE_SIZE * 2), (TILE_SIZE * 2))
     location_y = random.randrange(0, HEIGHT, TILE_SIZE)
     if not (grass_list[i - 1][0] == location_x and grass_list[i - 1][1] == location_y):
         grass_list[i][0] = location_x
@@ -38,16 +38,18 @@ while i < 20:
 
 i = 0
 while i < 20:
-    location_x = random.randrange(0, (WIDTH - (TILE_SIZE * 2)), TILE_SIZE)
+    location_x = random.randrange(0, (WIDTH - (TILE_SIZE * 2)), (TILE_SIZE * 3))
     location_y = random.randrange(0, HEIGHT, TILE_SIZE)
     x = int(location_x / TILE_SIZE)
     y = int(location_y / TILE_SIZE)
     if matrix[y][x] != 'x':
-        i += 1
+        mine_list.append([])
         for j in range(3):
             matrix[y][x + j] = 'x'
-            mine_list.append([])
-            mine_list[i].
+            mine_list[i].append(x + j)
+        mine_list[i].append(y)
+        i += 1
+
 
 for row in range(21, 25):
     for col in range(47, 50):
@@ -73,9 +75,7 @@ while running:
         screen.fill(COLOR_BG)
         for row in range(20):
             if read:
-                file = open('memory.txt', 'r')
-                print(file.read())
-                file.close()
+               pass
             else:
                 screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
 
@@ -212,16 +212,16 @@ while running:
         file.write("grass location: \n")
         for grass in range(20):
             file.write(f"{grass_list[grass][0]}, {grass_list[grass][1]} \n")
-        file.close()
 
-        file = open('memory.txt', 'w')
-        file.write("mine index: \n")
+        file.write('\n'"mine index: \n")
         for mine in range(20):
-            file.write(f"{grass_list[grass][0]}, {grass_list[grass][1]} \n")
-        file.close()
+            file.write(f"({mine_list[mine][0]}, {mine_list[mine][1]} , {mine_list[mine][2]}), ({mine_list[mine][3]}) \n")
 
-        print("**********")
+        file.write('\n'"player location: \n")
+        file.write(f"{move_x} {move_y}")
+        file.close()
         write = False
+        print(")))))))))")
 
     elif read:
         file = open('memory.txt', 'r')
@@ -229,7 +229,17 @@ while running:
         file.close()
         read = False
 
+    if read:
+        file = open('memory.txt', 'r')
+        player_location = file.read(46)
+        player_location.split(' ')
+        move_x = int(player_location[0])
+        move_y = int(player_location[1])
+        screen.blit(SOLDIER, (move_x, move_y))
+        file.close()
+        read = False
+    else:
+        screen.blit(SOLDIER, (move_x, move_y))
     screen.blit(FLAG, ((47 * TILE_SIZE), (21 * TILE_SIZE)))
-    screen.blit(SOLDIER, (move_x, move_y))
 
     pygame.display.update()
