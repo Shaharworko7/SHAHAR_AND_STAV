@@ -79,8 +79,10 @@ while running:
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                if not is_win and (matrix[player_rows["player_feet_row"]][player_left_col] != 'flag'
+                                   and matrix[player_rows["player_feet_row"]][player_right_col] != 'flag'):
+                    matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                    matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
@@ -97,8 +99,10 @@ while running:
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                if not is_win and (matrix[player_rows["player_feet_row"]][player_left_col] != 'flag'
+                                   and matrix[player_rows["player_feet_row"]][player_right_col] != 'flag'):
+                    matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                    matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
@@ -115,8 +119,10 @@ while running:
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                if not is_win and (matrix[player_rows["player_feet_row"]][player_left_col] != 'flag'
+                                   and matrix[player_rows["player_feet_row"]][player_right_col] != 'flag'):
+                    matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                    matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
@@ -137,7 +143,6 @@ while running:
                                    and matrix[player_rows["player_feet_row"]][player_right_col] != 'flag'):
                     matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
                     matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
-
             else:
                 is_lose = True
             pygame.time.wait(100)
@@ -162,9 +167,9 @@ while running:
             screen.blit(win_text, textRect)
         else:
             wait = True
-        # for row in matrix:
-        #     print(row)
-        # print()
+        for row in matrix:
+            print(row)
+        print()
 
     screen.blit(FLAG, ((47 * TILE_SIZE), (21 * TILE_SIZE)))
     screen.blit(SOLDIER, (move_x, move_y))
