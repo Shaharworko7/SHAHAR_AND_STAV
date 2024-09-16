@@ -11,6 +11,10 @@ is_win = False
 is_lose = False
 wait = False
 read = False
+write = False
+last = 0
+now = 0
+save_flag = False
 
 X = 800
 Y = 400
@@ -42,6 +46,8 @@ while i < 20:
         i += 1
         for j in range(3):
             matrix[y][x + j] = 'x'
+            mine_list.append([])
+            mine_list[i].
 
 for row in range(21, 25):
     for col in range(47, 50):
@@ -56,18 +62,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-###############
-    key = pygame.key.get_pressed()
-    for save in range(9):
-        if key[SAVE_KEYS_LIST[save]] and pygame.time.set_timer(key[SAVE_KEYS_LIST[save]], 1000):
-            read = True
 
-    if read:
-        file = open('memory.txt', 'r')
-        print(file.readlines())
-        file.close()
-        read = False
-#############
+    key = pygame.key.get_pressed()
+
     if wait:
         pygame.time.wait(1000)
         wait = False
@@ -75,7 +72,12 @@ while running:
     else:
         screen.fill(COLOR_BG)
         for row in range(20):
-            screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
+            if read:
+                file = open('memory.txt', 'r')
+                print(file.read())
+                file.close()
+            else:
+                screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
 
         # player move right:
         if key[pygame.K_RIGHT] and move_x < WIDTH - 33:
@@ -180,6 +182,52 @@ while running:
         # for row in matrix:
         #     print(row)
         # print()
+
+    for save in range(9):
+        if key[SAVE_KEYS_LIST[save]]:
+            if len(time_last) == 0 and len(key_pressed) == 0:
+                time_last.append(pygame.time.get_ticks())
+                key_pressed.append(SAVE_KEYS_LIST[save])
+                save_flag = True
+
+    if save_flag and not key[key_pressed[0]]:
+        now = pygame.time.get_ticks()
+        if now - time_last[0] >= 1000:
+            read = True
+        else:
+            write = True
+        save_flag = False
+        time_last.clear()
+        key_pressed.clear()
+
+    # for save in range(9):
+    #     if key[SAVE_KEYS_LIST[save]]:
+    #         pygame.time.wait(1000)
+    #         if key[SAVE_KEYS_LIST[save]]:
+    #             read = True
+    #         else:
+    #             write = True
+    if write:
+        file = open('memory.txt', 'w')
+        file.write("grass location: \n")
+        for grass in range(20):
+            file.write(f"{grass_list[grass][0]}, {grass_list[grass][1]} \n")
+        file.close()
+
+        file = open('memory.txt', 'w')
+        file.write("mine index: \n")
+        for mine in range(20):
+            file.write(f"{grass_list[grass][0]}, {grass_list[grass][1]} \n")
+        file.close()
+
+        print("**********")
+        write = False
+
+    elif read:
+        file = open('memory.txt', 'r')
+        print(file.readlines())
+        file.close()
+        read = False
 
     screen.blit(FLAG, ((47 * TILE_SIZE), (21 * TILE_SIZE)))
     screen.blit(SOLDIER, (move_x, move_y))

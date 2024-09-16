@@ -11,6 +11,7 @@ GRID_WIDTH = int(WIDTH / TILE_SIZE)
 GRID_HEIGHT = int(HEIGHT / TILE_SIZE)
 
 grass_list = []
+mine_list = []
 
 player_rows = {
     "player_body_row1": 0,
@@ -35,6 +36,9 @@ SAVE_KEYS_LIST = [
     pygame.K_8,
     pygame.K_9,
 ]
+
+time_last = []
+key_pressed = []
 
 move_x = 1
 move_y = 1
