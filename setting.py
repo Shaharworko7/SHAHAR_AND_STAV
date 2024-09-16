@@ -24,6 +24,18 @@ PLAYER_DICT_K_LIST = ["player_body_row1", "player_body_row2", "player_body_row3"
 player_left_col = 0
 player_right_col = 1
 
+SAVE_KEYS_LIST = [
+    pygame.K_1,
+    pygame.K_2,
+    pygame.K_3,
+    pygame.K_4,
+    pygame.K_5,
+    pygame.K_6,
+    pygame.K_7,
+    pygame.K_8,
+    pygame.K_9,
+]
+
 move_x = 1
 move_y = 1
 

@@ -5,12 +5,12 @@ import random
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITLE)
-clock = pygame.time.Clock()
 running = True
 
 is_win = False
 is_lose = False
 wait = False
+read = False
 
 X = 800
 Y = 400
@@ -56,8 +56,18 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+###############
     key = pygame.key.get_pressed()
+    for save in range(9):
+        if key[SAVE_KEYS_LIST[save]] and pygame.time.set_timer(key[SAVE_KEYS_LIST[save]], 1000):
+            read = True
+
+    if read:
+        file = open('memory.txt', 'r')
+        print(file.readlines())
+        file.close()
+        read = False
+#############
     if wait:
         pygame.time.wait(1000)
         wait = False
