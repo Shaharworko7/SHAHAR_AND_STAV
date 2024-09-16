@@ -19,9 +19,10 @@ player_rows = {
     "player_feet_row": 3
 }
 
+PLAYER_DICT_K_LIST = ["player_body_row1", "player_body_row2", "player_body_row3", "player_feet_row"]
+
 player_left_col = 0
 player_right_col = 1
-
 
 move_x = 1
 move_y = 1
@@ -31,5 +32,3 @@ FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-
 SOLDIER = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-33.png")
 GRASS = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-green.png")
 MINE = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-0.png")
-
-

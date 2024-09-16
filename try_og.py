@@ -7,13 +7,15 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("womp")
 clock = pygame.time.Clock()
 running = True
-is_win = True
+is_win = False
+is_lose = False
 wait = False
 
 X = 800
 Y = 400
 font = pygame.font.Font(None, 100)
 lose_text = font.render("YOU LOSE!", True, (255, 255, 255))
+win_text = font.render("YOU WIN!", True, (255, 255, 255))
 textRect = lose_text.get_rect()
 textRect.center = (X // 2, Y // 2)
 
@@ -45,7 +47,7 @@ for row in range(21, 25):
         matrix[row][col] = 'flag'
 
 while running:
-    if not is_win:
+    if is_lose or is_win:
         pygame.time.wait(3000)
         running = False
 
@@ -71,8 +73,14 @@ while running:
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
                 matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
                 matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+
+                for i in range(3):
+                    if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
+                            or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
+                        is_win = True
+
             else:
-                is_win = False
+                is_lose = True
             pygame.time.wait(100)
 
         if key[pygame.K_LEFT] and move_x > 1:
@@ -83,33 +91,49 @@ while running:
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
                 matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
                 matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                for i in range(3):
+                    if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
+                            or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
+                        is_win = True
             else:
-                is_win = False
+                is_lose = True
             pygame.time.wait(100)
 
         if key[pygame.K_UP] and move_y > 1:
             move_y -= TILE_SIZE
-            player_rows["player_feet_row"] -= 1
+            for i in range(4):
+                player_rows[PLAYER_DICT_K_LIST[i]] -= 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
                 matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
                 matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                for i in range(3):
+                    if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
+                            or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
+                        is_win = True
+
             else:
-                is_win = False
+                is_lose = True
             pygame.time.wait(100)
 
         if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
             move_y += TILE_SIZE
-            player_rows["player_feet_row"] += 1
+            for i in range(4):
+                player_rows[PLAYER_DICT_K_LIST[i]] += 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
                 matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
                 matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
+                for i in range(3):
+                    if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
+                            or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
+                        is_win = True
+
             else:
-                is_win = False
+                is_lose = True
             pygame.time.wait(100)
 
-    if not is_win or key[pygame.K_RETURN]:
+    if is_lose or is_win or key[pygame.K_RETURN]:
         screen.fill(SQUARES_COLOR)
         for row in range(25):
             for col in range(50):
@@ -123,10 +147,16 @@ while running:
                     screen.blit(MINE, (location_x, location_y))
                     col += 2
                 col += 1
-        if not is_win:
+        if is_lose:
             screen.blit(lose_text, textRect)
+        elif is_win:
+            screen.blit(win_text, textRect)
         else:
             wait = True
+
+        for row in matrix:
+            print(row)
+        print()
 
     screen.blit(FLAG, ((47 * TILE_SIZE), (21 * TILE_SIZE)))
     screen.blit(SOLDIER, (move_x, move_y))
