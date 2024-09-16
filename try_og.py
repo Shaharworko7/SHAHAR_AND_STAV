@@ -4,9 +4,10 @@ import random
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("womp")
+pygame.display.set_caption(TITLE)
 clock = pygame.time.Clock()
 running = True
+
 is_win = False
 is_lose = False
 wait = False
@@ -46,6 +47,7 @@ for row in range(21, 25):
     for col in range(47, 50):
         matrix[row][col] = 'flag'
 
+# game loop:
 while running:
     if is_lose or is_win:
         pygame.time.wait(3000)
@@ -65,70 +67,76 @@ while running:
         for row in range(20):
             screen.blit(GRASS, (grass_list[row][0], grass_list[row][1]))
 
+        # player move right:
         if key[pygame.K_RIGHT] and move_x < WIDTH - 33:
             move_x += TILE_SIZE
             player_left_col += 1
             player_right_col += 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
-
                 for i in range(3):
                     if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
 
+        # player move left:
         if key[pygame.K_LEFT] and move_x > 1:
             move_x -= TILE_SIZE
             player_left_col -= 1
             player_right_col -= 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
                 for i in range(3):
                     if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
+
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
 
+        # player move up:
         if key[pygame.K_UP] and move_y > 1:
             move_y -= TILE_SIZE
             for i in range(4):
                 player_rows[PLAYER_DICT_K_LIST[i]] -= 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
                 for i in range(3):
                     if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
+                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)
 
+        # player move down:
         if key[pygame.K_DOWN] and move_y < HEIGHT - 65:
             move_y += TILE_SIZE
             for i in range(4):
                 player_rows[PLAYER_DICT_K_LIST[i]] += 1
             if (matrix[player_rows["player_feet_row"]][player_left_col] != 'x'
                     and matrix[player_rows["player_feet_row"]][player_right_col] != 'x'):
-                matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
-                matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
                 for i in range(3):
                     if (matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_left_col] == 'flag'
                             or matrix[player_rows[PLAYER_DICT_K_LIST[i]]][player_right_col] == 'flag'):
                         is_win = True
 
+                if not is_win and (matrix[player_rows["player_feet_row"]][player_left_col] != 'flag'
+                                   and matrix[player_rows["player_feet_row"]][player_right_col] != 'flag'):
+                    matrix[player_rows["player_feet_row"]][player_left_col] = 'P'
+                    matrix[player_rows["player_feet_row"]][player_right_col] = 'P'
             else:
                 is_lose = True
             pygame.time.wait(100)

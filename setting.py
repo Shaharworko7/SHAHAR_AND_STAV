@@ -2,8 +2,8 @@ import pygame
 
 WIDTH = 800
 HEIGHT = 400
-MARGIN = 1
-TITLE = "womp"
+
+TITLE = "soldier game :D"
 COLOR_BG = (73, 128, 55)
 SQUARES_COLOR = (33, 40, 43)
 TILE_SIZE = 16
@@ -29,6 +29,14 @@ move_y = 1
 
 # stav graphics
 FLAG = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-flag.png")
+FLAG = pygame.transform.scale(FLAG, (48, 64))
+
 SOLDIER = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-33.png")
+SOLDIER = pygame.transform.scale(SOLDIER, (32, 64))
+
 GRASS = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-green.png")
+GRASS = pygame.transform.scale(GRASS, (32, 16))
+
 MINE = pygame.image.load("C:\\Users\\jbt\\Desktop\\pygame_graphics\\pixil-frame-0.png")
+MINE = pygame.transform.scale(MINE, (48, 16))
+
