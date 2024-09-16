@@ -137,7 +137,7 @@ while running:
         screen.fill(SQUARES_COLOR)
         for row in range(25):
             for col in range(50):
-                pygame.draw.rect(screen, (COLOR_BG), [(TILE_SIZE) * col, (TILE_SIZE) * row, WIDTH, HEIGHT], 1)
+                pygame.draw.rect(screen, COLOR_BG, [TILE_SIZE * col, TILE_SIZE * row, WIDTH, HEIGHT], 1)
         for row in range(GRID_HEIGHT):
             col = 0
             while col < GRID_WIDTH:
